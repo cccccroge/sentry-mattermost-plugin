@@ -21,6 +21,9 @@ type Plugin struct {
 	configuration *configuration
 
 	router *mux.Router
+
+	// BotId of the created bot account.
+	botID string
 }
 
 // See https://developers.mattermost.com/extend/plugins/server/reference/

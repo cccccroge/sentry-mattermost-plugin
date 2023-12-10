@@ -13,6 +13,7 @@ func (p *Plugin) OnActivate() error {
 		return err
 	}
 
+	p.ensureBot()
 	p.initializeAPI()
 
 	return nil
