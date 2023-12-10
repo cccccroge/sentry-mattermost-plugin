@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"io"
 	"net/http"
 
@@ -97,10 +98,11 @@ func (p *Plugin) handleAlert(w http.ResponseWriter, r *http.Request) {
 	}
 
 	// Create a post to cyberbiz-checkout-alert
+	message := fmt.Sprintf("#### %s\ntime: %s\nurl: %s\nmessage: %s\n-\ntriggered by [%s](%s)", exceptionType, datetime, exceptionURL, exceptionMessage, alertRule, issueURL)
 	if _, err := p.API.CreatePost(&model.Post{
 		UserId:    p.botID,
-		ChannelId: "1bws98wmotdttprzgsqa1bqt5o", // cyberbiz-checkout-alert
-		Message:   "test error sent from sentry",
+		ChannelId: "1bws98wmotdttprzgsqa1bqt5o", // hard coded to: ~cyberbiz-checkout-alert
+		Message:   message,
 	}); err != nil {
 		http.Error(w, "Failed to create the post", http.StatusBadRequest)
 		return
